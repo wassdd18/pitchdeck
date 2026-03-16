@@ -1,14 +1,10 @@
-// ─────────────────────────────────────────────────────────
-//  app/(tabs)/messages.js  — Сообщения и уведомления
-// ─────────────────────────────────────────────────────────
-
 import { useEffect, useRef, useState } from 'react';
 import {
-    Animated,
-    FlatList,
-    StyleSheet,
-    TouchableOpacity,
-    View,
+  Animated,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import BottomNav from '../../components/ui/bottom-nav';
 import { ThemedText } from '../../components/ui/themed-text';
@@ -16,7 +12,6 @@ import { ThemedView } from '../../components/ui/themed-view';
 import { useAuth } from '../../contexts/auth-context';
 import { BORDER_RADIUS, COLORS, SHADOWS, SPACING } from '../../lib/theme';
 
-// ── Заглушки — замени на реальные данные из Appwrite ─────
 const MOCK_MESSAGES = [
   {
     id: '1',
@@ -71,12 +66,10 @@ export default function MessagesScreen() {
 
   return (
     <ThemedView>
-      {/* ── Шапка ── */}
       <View style={styles.header}>
         <ThemedText type="title" style={styles.headerTitle}>Messages</ThemedText>
       </View>
 
-      {/* ── Табы ── */}
       <View style={styles.tabBar}>
         {TABS.map((t, i) => (
           <TouchableOpacity
@@ -92,7 +85,6 @@ export default function MessagesScreen() {
         ))}
       </View>
 
-      {/* ── Контент ── */}
       <Animated.View style={[styles.content, { opacity: fadeAnim }]}>
         {activeTab === 0
           ? <MessageList />
@@ -105,7 +97,6 @@ export default function MessagesScreen() {
   );
 }
 
-// ── Список сообщений ─────────────────────────────────────
 function MessageList() {
   return (
     <FlatList
@@ -136,12 +127,10 @@ function MessageRow({ item, index }) {
       transform: [{ translateX: anim.interpolate({ inputRange: [0,1], outputRange: [-30, 0] }) }],
     }}>
       <TouchableOpacity style={styles.msgRow} activeOpacity={0.8}>
-        {/* Аватар */}
         <View style={styles.avatar}>
           <ThemedText style={styles.avatarEmoji}>{item.avatar}</ThemedText>
         </View>
 
-        {/* Текст */}
         <View style={styles.msgBody}>
           <View style={styles.msgTop}>
             <ThemedText style={styles.msgName}>{item.name}</ThemedText>
@@ -150,7 +139,6 @@ function MessageRow({ item, index }) {
           <ThemedText style={styles.msgPreview} numberOfLines={1}>{item.preview}</ThemedText>
         </View>
 
-        {/* Значок непрочитанных */}
         {item.unread > 0 && (
           <View style={styles.badge}>
             <ThemedText style={styles.badgeText}>{item.unread}</ThemedText>
@@ -161,7 +149,6 @@ function MessageRow({ item, index }) {
   );
 }
 
-// ── Список кружков — берётся из user.prefs.joinedCircles ─
 function CircleList() {
   const { user } = useAuth();
   const joinedCircles = user?.prefs?.joinedCircles ?? [];
@@ -223,7 +210,6 @@ function EventCard({ item, index }) {
       },
     ]}>
       <TouchableOpacity onPress={toggleExpand} activeOpacity={0.9}>
-        {/* Шапка события */}
         <View style={styles.eventHeader}>
           <View style={styles.eventDot} />
           <View style={styles.eventInfo}>
@@ -238,7 +224,6 @@ function EventCard({ item, index }) {
           <ThemedText style={[styles.chevron, expanded && styles.chevronUp]}>›</ThemedText>
         </View>
 
-        {/* Раскрывающийся блок */}
         <Animated.View style={[styles.attendeesWrap, { maxHeight, overflow: 'hidden' }]}>
           <View style={styles.divider} />
           <ThemedText style={styles.attendeesLabel}>
@@ -262,7 +247,6 @@ const styles = StyleSheet.create({
   },
   headerTitle: { color: COLORS.primary, letterSpacing: 2 },
 
-  // Tabs
   tabBar: {
     flexDirection:     'row',
     marginHorizontal:  SPACING.lg,
@@ -284,7 +268,6 @@ const styles = StyleSheet.create({
   content: { flex: 1 },
   list:    { paddingHorizontal: SPACING.md, paddingBottom: SPACING.xl },
 
-  // Empty state
   emptyWrap: {
     flex:           1,
     alignItems:     'center',
@@ -296,7 +279,6 @@ const styles = StyleSheet.create({
   emptyTitle:    { marginBottom: SPACING.sm, color: COLORS.textPrimary },
   emptySubtitle: { textAlign: 'center', color: COLORS.textSecondary, lineHeight: 20 },
 
-  // Message row
   msgRow: {
     flexDirection:   'row',
     alignItems:      'center',
@@ -339,7 +321,6 @@ const styles = StyleSheet.create({
   },
   badgeText: { color: '#fff', fontSize: 11, fontWeight: '700' },
 
-  // Event card
   eventCard: {
     backgroundColor: '#FFFFFF',
     borderRadius:    BORDER_RADIUS.lg,

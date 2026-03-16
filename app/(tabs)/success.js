@@ -1,6 +1,3 @@
-// ─────────────────────────────────────────────────────────
-//  app/(tabs)/success.js
-// ─────────────────────────────────────────────────────────
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useRef } from 'react';
 import { Animated, StyleSheet, View } from 'react-native';

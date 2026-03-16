@@ -1,20 +1,16 @@
-// ─────────────────────────────────────────────────────────
-//  app/(tabs)/user-profile.js  — Профиль пользователя
-// ─────────────────────────────────────────────────────────
-
 import * as ImagePicker from 'expo-image-picker';
 import { router } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import {
-    Alert,
-    Animated,
-    Image,
-    Modal,
-    ScrollView,
-    StyleSheet,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Alert,
+  Animated,
+  Image,
+  Modal,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import BottomNav from '../../components/ui/bottom-nav';
 import ThemedButton from '../../components/ui/themed-button';
@@ -55,7 +51,6 @@ export default function UserProfileScreen() {
     );
   };
 
-  // Данные из Appwrite user объекта
   const displayName = user?.name             ?? 'Your Name';
   const email       = user?.email            ?? '—';
   const location    = user?.prefs?.location  ?? '—';
@@ -69,7 +64,6 @@ export default function UserProfileScreen() {
         contentContainerStyle={styles.scroll}
         showsVerticalScrollIndicator={false}
       >
-        {/* ── Шапка ── */}
         <View style={styles.header}>
           <ThemedText type="title" style={styles.headerTitle}>Profile</ThemedText>
           <TouchableOpacity style={styles.editIconBtn} onPress={() => setEditModal(true)}>
@@ -79,7 +73,6 @@ export default function UserProfileScreen() {
 
         <Animated.View style={{ opacity: fadeAnim, transform: [{ translateY: slideAnim }] }}>
 
-          {/* ── Аватар ── */}
           <View style={styles.avatarSection}>
             <View style={styles.avatarWrap}>
               {avatar
@@ -97,7 +90,6 @@ export default function UserProfileScreen() {
             <ThemedText type="subtitle" style={styles.displayName}>{displayName}</ThemedText>
           </View>
 
-          {/* ── Информация ── */}
           <View style={styles.card}>
             <InfoRow icon="👤" label="Name"     value={displayName} />
             <InfoRow icon="🏙️" label="Location" value={location} />
@@ -105,7 +97,6 @@ export default function UserProfileScreen() {
             <InfoRow icon="🌐" label="Language" value={language} last />
           </View>
 
-          {/* ── Хобби ── */}
           {hobbies.length > 0 && (
             <View style={styles.card}>
               <ThemedText style={styles.sectionTitle}>Hobbies & Interests</ThemedText>
@@ -119,7 +110,6 @@ export default function UserProfileScreen() {
             </View>
           )}
 
-          {/* ── Кнопка выхода ── */}
           <ThemedButton
             title="Log Out"
             onPress={handleLogout}
@@ -134,7 +124,6 @@ export default function UserProfileScreen() {
 
       <BottomNav />
 
-      {/* ── Модальное окно редактирования ── */}
       <EditModal
         visible={editModal}
         onClose={() => setEditModal(false)}
@@ -144,7 +133,6 @@ export default function UserProfileScreen() {
   );
 }
 
-// ── Строка с иконкой ─────────────────────────────────────
 function InfoRow({ icon, label, value, last }) {
   return (
     <View style={[styles.infoRow, !last && styles.infoRowBorder]}>
@@ -159,7 +147,6 @@ function InfoRow({ icon, label, value, last }) {
   );
 }
 
-// ── Модальное окно редактирования ────────────────────────
 function EditModal({ visible, onClose, user }) {
   const { updateProfile, loading } = useAuth();
 
@@ -218,7 +205,6 @@ function EditModal({ visible, onClose, user }) {
 
           <ThemedText type="subtitle" style={modal.title}>Edit Profile</ThemedText>
 
-          {/* Аватар */}
           <TouchableOpacity style={modal.avatarBtn} onPress={pickImage}>
             {avatar
               ? <Image source={{ uri: avatar }} style={modal.avatarImg} />
@@ -285,7 +271,6 @@ const styles = StyleSheet.create({
   editIconBtn:  { padding: SPACING.sm },
   editIcon:     { fontSize: 20 },
 
-  // Avatar
   avatarSection: {
     alignItems:    'center',
     paddingVertical: SPACING.lg,
@@ -328,7 +313,6 @@ const styles = StyleSheet.create({
   editBadgeIcon: { fontSize: 13 },
   displayName:   { color: COLORS.textPrimary },
 
-  // Info card
   card: {
     backgroundColor:   '#FFFFFF',
     marginHorizontal:  SPACING.md,
@@ -360,7 +344,6 @@ const styles = StyleSheet.create({
   infoLabel:   { fontSize: 11, color: COLORS.textMuted, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 0.5 },
   infoValue:   { fontSize: 15, color: COLORS.textPrimary, fontWeight: '500', marginTop: 1 },
 
-  // Hobbies
   sectionTitle: { fontWeight: '600', color: COLORS.primary, padding: SPACING.md, paddingBottom: SPACING.sm },
   hobbiesWrap: {
     flexDirection:     'row',

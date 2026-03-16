@@ -292,4 +292,4 @@ We welcome:
 
 ---
 
-Made with ❤️ for the MEET community
+Made with ❤️
